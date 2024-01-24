@@ -41,19 +41,19 @@ builder
 
 There are a lot of questions when it comes to chaos engineering and making sure that a system is actually ready to face the worst possible scenarios:
 
-* Is my system resilient enough?
-* Am I handling the right exceptions/scenarios?
-* How will my system behave if X happens?
-* How can I test without waiting for a handled (or even unhandled) exception to happen in my production environment?
+- Is my system resilient enough?
+- Am I handling the right exceptions/scenarios?
+- How will my system behave if X happens?
+- How can I test without waiting for a handled (or even unhandled) exception to happen in my production environment?
 
 Using Polly helps introduce resilience to a project, but we don't want to have to wait for expected or unexpected failures to test it out. A resilience could be wrongly implemented; testing the scenarios is not straightforward; and mocking failure of some dependencies (for example a cloud SaaS or PaaS service) is not always straightforward.
 
 ### What is needed to simulate chaotic scenarios?
 
-* A way to simulate failures of dependencies (any service dependency for example).
-* Define when to fail based on some external factors - maybe global configuration or some rule.
-* A way to revert easily, to control the blast radius.
-* To be production grade, to run this in a production or near-production system with automation.
+- A way to simulate failures of dependencies (any service dependency for example).
+- Define when to fail based on some external factors - maybe global configuration or some rule.
+- A way to revert easily, to control the blast radius.
+- To be production grade, to run this in a production or near-production system with automation.
 
 ## Chaos strategies
 
@@ -88,3 +88,12 @@ All the strategies' options implement the [`ChaosStrategyOptions`](xref:Polly.Si
 > If both `Enabled` and `EnabledGenerator` are specified then `Enabled` will be ignored.
 
 [simmy]: https://github.com/Polly-Contrib/Simmy
+
+## Telemetry
+
+The telemetry of chaos strategies is seamlessly integrated with Polly [telemetry infrastructure](../advanced/telemetry.md). The chaos strategies produce the following events:
+
+- `Chaos.OnFault`
+- `Chaos.OnOutcome`
+- `Chaos.OnLatency`
+- `Chaos.OnBehavior`
